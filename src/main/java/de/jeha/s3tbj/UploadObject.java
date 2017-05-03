@@ -42,7 +42,7 @@ public class UploadObject {
         //s3Client.putObject(bucket, "test-object", Long.toString(new Date().getTime()));
 
         for(S3VersionSummary s : s3Client.listVersions(bucket, "test-object").getVersionSummaries()) {
-            System.out.printf("%s ->> %s\n", s.getKey(),  s.getVersionId());
+            System.out.printf("%s -> %s\n", s.getKey(),  s.getVersionId());
         }
     }
 
