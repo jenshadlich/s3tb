@@ -8,9 +8,11 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.S3ClientOptions;
 import com.amazonaws.services.s3.model.BucketVersioningConfiguration;
+import com.amazonaws.services.s3.model.S3VersionSummary;
 import com.amazonaws.services.s3.model.SetBucketVersioningConfigurationRequest;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -43,6 +45,16 @@ public class CreateBucketWithVersioningEnabled {
                         bucket,
                         new BucketVersioningConfiguration(BucketVersioningConfiguration.ENABLED))
         );
+
+        if (false) {
+            for (int i = 0; i < 10; i++) {
+                s3Client.putObject(bucket, "test-object", Long.toString(new Date().getTime()));
+            }
+
+            for (S3VersionSummary s : s3Client.listVersions(bucket, "test-object").getVersionSummaries()) {
+                System.out.printf("%s -> %s\n", s.getKey(), s.getVersionId());
+            }
+        }
     }
 
 }
